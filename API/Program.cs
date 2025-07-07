@@ -30,7 +30,7 @@ namespace API
                     typeof(API.Program).Assembly,
                     typeof(Persistence.Repositories.InMemoryRepository).Assembly
                 ));
-            builder.Services.AddScoped<Application.Interfaces.IProductRepository, Persistence.Repositories.InMemoryRepository>();
+            builder.Services.AddSingleton<Application.Interfaces.IProductRepository, Persistence.Repositories.InMemoryRepository>();
             var app = builder.Build();
 
             if (app.Environment.IsDevelopment())
