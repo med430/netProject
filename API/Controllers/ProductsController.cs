@@ -1,5 +1,7 @@
 ﻿using Application.Features.Queries.GetProducts;
 using Application.Features.Commands.CreateProduct;
+using Application.Features.Commands.UpdateProduct;
+using Application.Features.Commands.DeleteProduct;
 using Domain.Entities;
 using System;
 using System.Collections.Generic;
@@ -34,6 +36,28 @@ namespace API.Controllers
         {
             var id = await _mediator.Send(command);
             return Ok(id);
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> UpdateProduct([FromBody] UpdateProductCommand command)
+        {
+            var product = await _mediator.Send(command);
+            if (product == null)
+            {
+                return NotFound($"Product with ID {command.Id} not found.");
+            }
+            return Ok(product);
+        }
+
+        [HttpDelete]
+        public async Task<IActionResult> DeleteProduct(int id)
+        {
+            var product = await _mediator.Send(new DeleteProductCommand(id));
+            if (product == null)
+            {
+                return NotFound($"Product with ID {id} not found.");
+            }
+            return Ok(product);
         }
     }
 }

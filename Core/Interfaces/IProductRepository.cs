@@ -12,5 +12,7 @@ namespace Application.Interfaces
         Task<IEnumerable<Product>> GetAllAsync();
         Task AddAsync(Product product);
         Task<Product?> GetByIdAsync(int id);
+
+        Task<Product?> DeleteAsync(int id);
     }
 }

@@ -28,5 +28,16 @@ namespace Persistence.Repositories
         {
             return Task.FromResult(_products.FirstOrDefault(p => p.Id == id));
         }
+
+        public Task<Product?> DeleteAsync(int id)
+        {
+            var product = _products.FirstOrDefault(p => p.Id == id);
+            if (product != null)
+            {
+                _products.Remove(product);
+                return Task.FromResult(product);
+            }
+            return Task.FromResult<Product?>(null);
+        }
     }
 }
